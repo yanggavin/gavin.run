@@ -1,1 +1,31 @@
-<app-todos></app-todos>
+<div class="container">
+  <div class="waterfall-header">
+    <h1>探索精彩瞬间</h1>
+  </div>
+
+  <div class="waterfall-container">
+    <div class="waterfall-column" *ngFor="let column of photoColumns">
+      <div class="photo-card" *ngFor="let photo of column">
+        <div class="photo-image">
+          <img [src]="photo.imageUrl" [alt]="photo.title" loading="lazy">
+        </div>
+        <div class="photo-content">
+          <h3>{{photo.title}}</h3>
+          <p>{{photo.description}}</p>
+          <div class="photo-footer">
+            <div class="user-info">
+              <img [src]="photo.userAvatar" alt="user avatar" class="avatar">
+              <span>{{photo.userName}}</span>
+            </div>
+            <div class="interaction">
+              <span class="likes">
+                <i class="heart-icon">❤️</i>
+                {{photo.likes}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
