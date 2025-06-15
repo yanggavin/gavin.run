@@ -23,7 +23,7 @@ frontend:
         - npm run clean
         - npm run build:ci
   artifacts:
-    baseDirectory: dist/amplify-angular-template
+    baseDirectory: dist/amplify-angular-template/browser
     files:
       - '**/*'
   cache:
