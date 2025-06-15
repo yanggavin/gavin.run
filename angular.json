@@ -56,7 +56,6 @@
               "aot": true,
               "extractLicenses": true,
               "namedChunks": false,
-              "vendorChunk": false,
               "sourceMap": false
             },
             "development": {
