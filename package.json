@@ -7,9 +7,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --configuration=production --progress=false --source-map=false",
+    "build:optimized": "node --max-old-space-size=4096 ./node_modules/@angular/cli/bin/ng build --configuration=production --progress=false --source-map=false --verbose=false",
+    "build:ci": "npm run build:optimized -- --no-progress",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "clean": "rimraf dist .angular/cache"
   },
   "private": true,
   "dependencies": {

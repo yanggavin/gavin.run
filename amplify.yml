@@ -5,22 +5,24 @@ backend:
       commands:
         - nvm use 20 || nvm install 20
         - node -v
+        - export NODE_OPTIONS="--max-old-space-size=4096 --max-http-header-size=16384"
     build:
       commands:
-        - npm ci --prefer-offline --no-audit
+        - npm ci --prefer-offline --no-audit --no-optional --legacy-peer-deps
         - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
 frontend:
   phases:
     preBuild:
       commands:
         - node -v
+        - export NODE_OPTIONS="--max-old-space-size=4096 --max-http-header-size=16384"
         - npm install -g @angular/cli
-        - npm ci --prefer-offline --no-audit
+        - npm ci --prefer-offline --no-audit --no-optional --legacy-peer-deps
     build:
       commands:
-        - ng build --configuration=production
+        - npm run build
   artifacts:
-    baseDirectory: dist/amplify-angular-template/browser
+    baseDirectory: dist/amplify-angular-template
     files:
       - '**/*'
   cache:
@@ -28,3 +30,4 @@ frontend:
       - node_modules/**/*
       - ~/.npm
       - ~/.cache
+      - .angular/cache/**/*
