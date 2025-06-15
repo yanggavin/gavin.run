@@ -90,39 +90,8 @@ export class AppComponent implements OnInit {
         userName: '猫奴一枚',
         userAvatar: 'https://randomuser.me/api/portraits/men/12.jpg',
         likes: 389
-      },
-      {
-        id: 7,
-        title: '家居布置',
-        description: '简约北欧风，打造温馨小窝',
-        imageUrl: 'https://images.unsplash.com/photo-1484101403633-562f891dc89a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-        userName: '家居达人',
-        userAvatar: 'https://randomuser.me/api/portraits/women/56.jpg',
-        likes: 267
-      },
-      {
-        id: 8,
-        title: '健身打卡',
-        description: '坚持就是胜利，每天进步一点点',
-        imageUrl: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-        userName: '健身达人',
-        userAvatar: 'https://randomuser.me/api/portraits/men/67.jpg',
-        likes: 421
       }
     ];
-
-    // 添加更多照片数据
-    for (let i = 9; i <= 20; i++) {
-      this.photos.push({
-        id: i,
-        title: `照片标题 ${i}`,
-        description: `这是照片 ${i} 的描述文字，展示小红书风格的内容`,
-        imageUrl: `https://picsum.photos/500/700?random=${i}`,
-        userName: `用户 ${i}`,
-        userAvatar: `https://randomuser.me/api/portraits/${i % 2 === 0 ? 'women' : 'men'}/${i + 10}.jpg`,
-        likes: Math.floor(Math.random() * 500) + 100
-      });
-    }
   }
 
   distributePhotosToColumns() {
