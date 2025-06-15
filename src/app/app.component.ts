@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TodosComponent } from './todos/todos.component';
 import { Amplify } from 'aws-amplify';
@@ -24,14 +24,27 @@ interface Photo {
   styleUrl: './app.component.css',
   imports: [RouterOutlet, TodosComponent, CommonModule],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = '小红书风格照片墙';
   photos: Photo[] = [];
   photoColumns: Photo[][] = [[], [], []]; // 默认3列瀑布流
 
+  // 存储resize事件处理函数的引用
+  private resizeHandler = () => {
+    this.distributePhotosToColumns();
+  };
+
   ngOnInit() {
     this.loadPhotos();
     this.distributePhotosToColumns();
+
+    // 监听窗口大小变化
+    window.addEventListener('resize', this.resizeHandler);
+  }
+
+  ngOnDestroy() {
+    // 组件销毁时移除事件监听器
+    window.removeEventListener('resize', this.resizeHandler);
   }
 
   loadPhotos() {
@@ -95,9 +108,20 @@ export class AppComponent implements OnInit {
   }
 
   distributePhotosToColumns() {
+    // 根据屏幕宽度决定列数
+    let columnCount = 3; // 默认3列
+    if (window.innerWidth < 768) {
+      columnCount = 1; // 移动设备使用1列
+    } else if (window.innerWidth < 992) {
+      columnCount = 2; // 平板设备使用2列
+    }
+
+    // 重置列数组
+    this.photoColumns = Array(columnCount).fill(null).map(() => []);
+
     // 将照片分配到不同列中以实现瀑布流效果
     this.photos.forEach((photo, index) => {
-      const columnIndex = index % 3; // 3列瀑布流
+      const columnIndex = index % columnCount;
       this.photoColumns[columnIndex].push(photo);
     });
   }
