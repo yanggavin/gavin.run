@@ -51,8 +51,8 @@
   width: 100%;
   height: auto;
   display: block;
-  object-fit: cover;
-  aspect-ratio: 3/4;
+  object-fit: contain;
+  max-width: 100%;
 }
 
 /* 照片内容 */
@@ -141,12 +141,16 @@
   .photo-image {
     margin: 0;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .photo-image img {
     width: 100%;
     height: auto;
-    aspect-ratio: 3/4;
+    max-height: 100vh;
+    object-position: center;
   }
 
   .photo-content {
